@@ -17,5 +17,6 @@ export default defineConfig({
         'pathRewrite': { '^/api' : '' },
       },
   },
+  mock: {},
   ...pluginConfig
 });

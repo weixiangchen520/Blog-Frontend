@@ -1,3 +1,4 @@
+import { history } from 'umi';
 import { createForm } from '@formily/core'
 import { Field } from '@formily/react'
 import { Form, FormItem, Input, Password, Submit } from '@formily/antd'
@@ -23,7 +24,7 @@ export default () => {
                 form={normalForm}
                 layout="vertical"
                 size="large"
-                onAutoSubmit={console.log}
+                onAutoSubmit={() => history.push('/home')}
             >
                 <Field
                     name="username"

@@ -1,18 +1,23 @@
-import { history } from 'umi';
-import { getUserInfo } from '@/services';
+import { history, RunTimeLayoutConfig } from 'umi';
+import { getUserInfo, getMenuData } from '@/services';
 
 export const getInitialState = async () => {
-    const userInfo = await getUserInfo({
+    const { data } = await getUserInfo({
         id: 3
     });
     return {
-        ...userInfo,
-        name: userInfo.username
+        ...data,
+        name: data.username
     };
 };
 
-export const layout = {
-    logout: () => {
-        history.push('/login')
-    },
-  };
+export const layout: RunTimeLayoutConfig = () => {
+    return {
+        menu: {
+            request: async (params, defaultMenuData) => {
+                const { data } = await getMenuData();
+                return data;
+            },
+        },
+    };
+};

@@ -7,6 +7,6 @@ export default {
         name: '博客管理系统',
         locale: true,
         layout: 'side',
-        logo: '/logo.png'
-    },
+        logo: '/logo.png',
+    }
 };
