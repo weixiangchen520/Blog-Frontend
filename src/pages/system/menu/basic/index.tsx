@@ -1,15 +1,14 @@
 import { useState } from 'react'
 import { createForm } from '@formily/core'
-import { Field, VoidField } from '@formily/react'
+import { Field } from '@formily/react'
 import {
     Form,
     FormItem,
     FormLayout,
     Input,
-    Cascader,
     Submit,
-    FormGrid,
     FormButtonGroup,
+    Radio
 } from '@formily/antd'
 import { Spin } from 'antd'
 
@@ -18,9 +17,9 @@ const form = createForm({
 })
 
 export default () => {
-    const [loading, setLoading] = useState(true)
     return (
-        <Spin spinning={loading}>
+        <Spin spinning={false}>
+            <div><a href="http://www.baidu.com" target="_parent">666</a></div>
             <Form
                 form={form}
                 labelCol={5}
@@ -28,54 +27,34 @@ export default () => {
                 onAutoSubmit={console.log}
             >
                 <Field
-                    name="username"
-                    title="用户名"
+                    name="name"
+                    title="菜单名"
                     required
                     decorator={[FormItem]}
                     component={[Input]}
                 />
-                <VoidField
-                    name="name"
-                    title="姓名"
-                    decorator={[
-                        FormItem,
-                        {
-                            asterisk: true,
-                            feedbackLayout: 'none',
-                        },
-                    ]}
-                    component={[FormGrid]}
-                >
-                    <Field
-                        name="firstName"
-                        decorator={[FormItem]}
-                        component={[
-                            Input,
-                            {
-                                placeholder: '姓',
-                            },
-                        ]}
-                        required
-                    />
-                    <Field
-                        name="lastName"
-                        decorator={[FormItem]}
-                        component={[
-                            Input,
-                            {
-                                placeholder: '名',
-                            },
-                        ]}
-                        required
-                    />
-                </VoidField>
                 <Field
-                    name="email"
-                    title="邮箱"
+                    name="href"
+                    title="菜单路径"
                     required
-                    validator="email"
                     decorator={[FormItem]}
                     component={[Input]}
+                />
+                <Field
+                    name="target"
+                    title="是否打开新页面"
+                    decorator={[FormItem]}
+                    component={[Radio.Group]}
+                    dataSource={[
+                        {
+                          label: '是',
+                          value: true,
+                        },
+                        {
+                          label: '否',
+                          value: false,
+                        },
+                      ]}
                 />
                 <FormButtonGroup.FormItem>
                     <Submit block size="large">

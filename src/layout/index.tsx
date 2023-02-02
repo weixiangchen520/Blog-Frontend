@@ -1,7 +1,18 @@
-import { PageContainer } from '@ant-design/pro-layout';
+import { history } from 'umi';
+import { Button } from 'antd';
 
 const Layout = ({ children }: any) => {
-    return <PageContainer>{children}</PageContainer>
+    return (
+        <>
+            <div>
+                <Button onClick={() => {
+                    window.localStorage.removeItem('token');
+                    history.push('/login');
+                }}>退出登录</Button>
+            </div>
+            {children}
+        </>
+    )
 };
 
 export default Layout;
