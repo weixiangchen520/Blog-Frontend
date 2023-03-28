@@ -4,6 +4,11 @@ export default [
         path: '/login', 
         component: 'login',
     },
+    { 
+        exact: true, 
+        path: '/register', 
+        component: 'register',
+    },
     {
         path: '/',
         component: '@/layout/index',

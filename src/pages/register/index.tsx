@@ -2,7 +2,7 @@ import { history } from 'umi';
 import { createForm } from '@formily/core'
 import { Field } from '@formily/react'
 import { Form, FormItem, Input, Password, Submit } from '@formily/antd'
-import { Card, message, Space, Button } from 'antd'
+import { Card, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
 const normalForm = createForm({
@@ -24,13 +24,8 @@ export default () => {
                     form={normalForm}
                     layout="vertical"
                     size="large"
-                    onAutoSubmit={({ username, password }) => {
-                        if (username === 'admin' && password === 'admin') {
-                            history.push('/home');
-                            window.localStorage.setItem('token', 'xxxx');
-                        } else {
-                            message.error('用户名或密码错误');
-                        }
+                    onAutoSubmit={({ username, password, confirmPassword }) => {
+                        console.log(password, confirmPassword)
                     }}
                 >
                     <Field
@@ -53,15 +48,38 @@ export default () => {
                         component={[
                             Password,
                             {
+                                checkStrength: true,
                                 prefix: <LockOutlined />,
                             },
                         ]}
                     />
-                    <Space style={{ marginBottom: 16 }}>
-                        <Button type="link" size="small" href="/register">注册</Button>
-                    </Space>
+                    <Field
+                        name="confirmPassword"
+                        title="确认密码"
+                        required
+                        decorator={[FormItem]}
+                        component={[
+                            Password,
+                            {
+                                checkStrength: true,
+                                prefix: <LockOutlined />,
+                            },
+                        ]}
+                        reactions={(field) => {
+                            const password = field.query('.password');
+                            field.selfErrors = password.value() !== field.value ? ['确认密码和密码不一致'] : [];
+                        }}
+                    />
+                    <Field
+                        name="email"
+                        title="邮箱"
+                        required
+                        validator="email"
+                        decorator={[FormItem]}
+                        component={[Input]}
+                    />
                     <Submit block size="large">
-                        登录
+                        注册
                     </Submit>
                 </Form>
             </Card>
